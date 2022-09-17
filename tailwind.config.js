@@ -1,0 +1,96 @@
+/* eslint-disable global-require */
+module.exports = {
+  content: [
+    './public/index.html',
+    './src/**/*.{vue,ts,js}',
+    './node_modules/@kk-digital/ui-library/dist/ui-library.umd.js',
+  ],
+  presets: [require('@kk-digital/ui-library').tailwind],
+  theme: {
+    screens: {
+      md: '768px',
+      lg: '1024px',
+      xl: '1280px',
+      '2xl': '1536px',
+    },
+    extend: {
+      colors: {
+        gray: {
+          100: 'rgb(250, 250, 250)',
+          200: 'rgb(237, 237, 237)',
+          300: 'rgb(232, 232, 232)',
+          400: 'rgb(229, 229, 229)',
+          500: 'rgb(227, 226, 226)',
+          600: 'rgb(221, 221, 221)',
+          700: 'rgb(209, 209, 209)',
+          800: 'rgb(185, 185, 185)',
+          900: 'rgb(129, 129, 129)',
+          1000: 'rgb(96, 96, 96)',
+          1100: 'rgb(80, 80, 80)',
+          1200: 'rgb(74, 74, 74)',
+          1300: 'rgb(70, 70, 70)',
+          1400: 'rgb(65, 65, 65)',
+          1500: 'rgb(60, 60, 60)',
+          1600: 'rgb(43, 43, 43)',
+          1700: 'rgb(28, 28, 28)',
+        },
+        green: {
+          500: 'rgb(95, 205, 180)',
+        },
+        orange: {
+          400: 'rgb(250,200,170)',
+          500: 'rgb(255, 100, 15)',
+        },
+        white: 'rgb(255, 255, 255)',
+        black: 'rgb(0, 0, 0)',
+        transparent: 'transparent',
+        current: 'currentColor',
+      },
+      fontSize: {
+        13: '1.3rem',
+        15: '1.5rem',
+        16: '1.6rem',
+        17: '1.7rem',
+        18: '1.8rem',
+        19: '1.9rem',
+        20: '2rem',
+        22: '2.2rem',
+        23: '2.3rem',
+        24: '2.4rem',
+        25: '2.5rem',
+        26: '2.6rem',
+        27: '2.7rem',
+        28: '2.8rem',
+        30: '3rem',
+        34: '3.4rem',
+        35: '3.5rem',
+        45: '4.5rem',
+      },
+      boxShadow: {
+        button: '0px 0px 8px 0px rgba(0, 0, 0, 0.08)',
+        switch: '0px 0px 8px 0px rgba(43, 43, 43, 0.05)',
+      },
+      borderRadius: {
+        2: '0.2rem',
+        3: '0.3rem',
+        5: '0.5rem',
+        none: 0,
+        full: '9999px',
+      },
+      borderWidth: {
+        3: '0.3rem',
+      },
+      minHeight: (theme) => ({
+        ...theme('spacing'),
+      }),
+      maxHeight: (theme) => ({
+        ...theme('spacing'),
+      }),
+      ringWidth: {
+        0: '0',
+        3: '0.3rem',
+      },
+    },
+  },
+  plugins: [require('@tailwindcss/line-clamp')],
+};
