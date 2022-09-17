@@ -1,5 +1,7 @@
 <template>
-  <div @submit.prevent="handlePollSubmit">
+  <div>
+    <p class="group-label">{{ label }}</p>
+    <slot></slot>
   </div>
 </template>
 
@@ -7,14 +9,18 @@
 import { defineComponent } from 'vue';
 
 export default defineComponent({
-  name: 'PollForm',
-  setup() {
-    const handlePollSubmit = () => {
-      console.log('submittinPoll')
-    };
-    return { handlePollSubmit };
+  name: 'InputGroup',
+  props: {
+    label: {
+      type: String,
+      default: '',
+    },
   },
 });
 </script>
 
-<style scoped></style>
+<style scoped>
+.group-label {
+  @apply text-18 font-medium mb-2;
+}
+</style>

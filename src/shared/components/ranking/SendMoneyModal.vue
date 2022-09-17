@@ -1,26 +1,30 @@
 <template>
-  <div class="modal-wrapper">
-    <div class="bg-shark opacity-50 inset-0 absolute"></div>
-    <div class="modal relative">
-      <div class="modal-heading">
-        <p>{{ label }}</p>
-      </div>
-      <slot></slot>
-      <button @click.prevent="$emit('close')" class="close-button">Close</button>
-    </div>
-  </div>
+  <BaseModal :label="t('money_modal_heading')" @close="$emit('close')">
+    <SendMoneyForm :user="user" @finished="$emit('finished')" />
+  </BaseModal>
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue';
+import { defineComponent, PropType } from 'vue';
+import { useTranslations } from '@/shared/composables/useTranslations';
+import BaseModal from '@/shared/components/BaseModal.vue';
+import SendMoneyForm from '@/shared/components/ranking/SendMoneyForm.vue';
+import { ApiUser } from '@/shared/interfaces/api/apiUser';
 
 export default defineComponent({
-  name: 'BaseModal',
+  name: 'SendMoneyModal',
+  components: { SendMoneyForm, BaseModal },
   props: {
-    label: {
-      type: String,
-      default: '',
+    user: {
+      type: Object as PropType<ApiUser>,
+      required: true,
     },
+  },
+  emits: ['close', 'finished'],
+  setup() {
+    const { t } = useTranslations();
+
+    return { t };
   },
 });
 </script>
@@ -28,17 +32,5 @@ export default defineComponent({
 <style scoped>
 .modal-wrapper {
   @apply fixed inset-0 flex items-center justify-center;
-}
-
-.modal {
-  @apply min-w-[40rem] max-w-[60rem] p-8 bg-peach-50 rounded-3xl;
-}
-
-.modal-heading {
-  @apply text-24 font-medium pb-4;
-}
-
-.close-button {
-  @apply absolute top-2 right-2 text-20 font-medium text-shark-400;
 }
 </style>

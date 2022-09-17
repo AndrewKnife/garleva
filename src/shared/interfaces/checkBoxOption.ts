@@ -1,4 +1,5 @@
-export interface Option {
-  id: number,
-  name: string,
+export interface CheckBoxOption {
+  value: boolean;
+  name: string;
+  id: number;
 }

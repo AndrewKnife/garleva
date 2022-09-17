@@ -1,7 +1,15 @@
 <template>
-  <div>
-    <span class="relative">
-      <span class="absolute inset-0">{{ label }}</span>
+  <div class="w-full my-8">
+    <span class="h-[2rem] w-full flex justif-center items-center">
+      <div class="relative m-auto text-26 text-white font-bold uppercase">
+        <div
+          class="absolute inset-0 text-peach-800"
+          style="transform: translateX(-4px) translateY(2px)"
+        >
+          <span>{{ label }}</span>
+        </div>
+        <span class="m-auto relative">{{ label }}</span>
+      </div>
     </span>
   </div>
 </template>
@@ -10,7 +18,7 @@
 import { defineComponent } from 'vue';
 
 export default defineComponent({
-  name: '3dText',
+  name: 'DimensionalText',
   props: {
     label: {
       type: String,
@@ -19,9 +27,3 @@ export default defineComponent({
   },
 });
 </script>
-
-<style scoped>
-#page {
-  @apply max-w-[108rem] flex flex-col h-full bg-shark-500 m-auto;
-}
-</style>

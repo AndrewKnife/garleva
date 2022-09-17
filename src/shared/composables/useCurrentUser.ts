@@ -1,20 +1,36 @@
 import { Ref, ref } from 'vue';
-import { getUsers } from '@/shared/services/getUsers';
 import { ApiUser } from '@/shared/interfaces/api/apiUser';
 
 interface UsePeopleReturns {
-  users: Ref<ApiUser[] | undefined>;
-  fetchUsers: () => void;
+  user: Ref<ApiUser | undefined>;
+  getSavedUser: () => void;
+  saveUser: (user: ApiUser | undefined) => void;
+  clearUser: () => void;
+  isAdmin: () => boolean;
 }
 
-const users = ref();
+const user = ref<ApiUser>();
 
-export const usePeople = (): UsePeopleReturns => {
-  const fetchUsers = () => {
-    (async () => {
-      users.value = await getUsers();
-    })();
+export const useCurrentUser = (): UsePeopleReturns => {
+  const getSavedUser = () => {
+    try {
+      user.value = JSON.parse(localStorage.getItem('user') || '');
+    } catch (e) {
+      console.log(e);
+    }
   };
-
-  return { users, fetchUsers };
+  const saveUser = (userToSave: ApiUser | undefined) => {
+    if (userToSave) {
+      localStorage.setItem('user', JSON.stringify(userToSave));
+      getSavedUser();
+    }
+  };
+  const clearUser = () => {
+    localStorage.removeItem('user');
+    user.value = undefined;
+  };
+  const isAdmin = () => {
+    return user.value?.name.toLowerCase() === 'admin';
+  };
+  return { user, getSavedUser, saveUser, clearUser, isAdmin };
 };

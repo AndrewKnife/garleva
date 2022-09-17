@@ -1,43 +1,31 @@
-import { Ref, ref } from 'vue';
-import { ApiPoll, PollForm } from '@/shared/interfaces/api/apiPoll';
-import { getPolls } from '@/shared/services/polls/getPolls';
-import { postPoll } from '@/shared/services/polls/postPoll';
-import { deletePoll } from '@/shared/services/polls/deletePoll';
-import { putPoll } from '@/shared/services/polls/putPoll';
 import { ApiUser } from '@/shared/interfaces/api/apiUser';
+import { putMoney } from '@/shared/services/money/handleMoney';
+import { usePeople } from '@/shared/composables/usePeople';
+import { getUsers } from '@/shared/services/getUsers';
 
 interface UsePeopleReturns {
-  polls: Ref<ApiPoll[] | undefined>;
-  fetchPolls: () => void;
-  createPoll: (newPoll: PollForm) => void;
-  removePoll: (pollId: number) => void;
-  betOnPoll: (poll: ApiPoll, user: ApiUser, betValue: number) => void;
+  changeUserMoney: (user: ApiUser, money: number) => void;
 }
 
-const polls = ref();
-
-export const usePolls = (): UsePeopleReturns => {
-  const fetchPolls = () => {
-    (async () => {
-      polls.value = await getPolls();
-    })();
+export const useMoney = (): UsePeopleReturns => {
+  const { fetchUsers } = usePeople();
+  const changeUserMoney = (user: ApiUser, money: number) => {
+    getUsers().then((latestUsers) => {
+      if (latestUsers?.length) {
+        const updatedUser = latestUsers.find((latestUser) => latestUser.id === user.id);
+        if (updatedUser) {
+          const moneyChange = money;
+          let newMoneyCount = updatedUser.score;
+          if (moneyChange >= 0 || newMoneyCount + moneyChange >= 0) {
+            newMoneyCount += moneyChange;
+          } else {
+            newMoneyCount = 0;
+          }
+          putMoney(updatedUser, newMoneyCount).then(() => fetchUsers());
+        }
+      }
+    });
   };
 
-  const createPoll = (newPoll: PollForm) => {
-    postPoll(newPoll).then(() => fetchPolls());
-  };
-
-  const removePoll = (pollId: number) => {
-    deletePoll(pollId).then(() => fetchPolls());
-  };
-
-  const betOnPoll = (poll: ApiPoll, user: ApiUser, betValue: number) => {
-    const updatedPoll: PollForm = {
-      name: '',
-      betters: '',
-    };
-    putPoll(poll.id, updatedPoll).then(() => fetchPolls());
-  };
-
-  return { polls, fetchPolls, createPoll, removePoll, betOnPoll };
+  return { changeUserMoney };
 };

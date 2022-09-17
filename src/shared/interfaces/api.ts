@@ -1,5 +1,4 @@
 import { ResultAsync } from '@/shared/utils/result';
-import { DataQueryParams, PaginatedResource } from '@/shared/interfaces/pagination';
 
 export interface FieldError {
   propertyPath: string;
@@ -29,9 +28,4 @@ export interface IApi {
   post<T>(url: string, params?: RequestInit): ResultAsync<Response<T>, ResponseError>;
   put<T>(url: string, params?: RequestInit): ResultAsync<Response<T>, ResponseError>;
   delete<T>(url: string, params?: RequestInit): ResultAsync<Response<T>, ResponseError>;
-  getPaginatedResource<T>(
-    apiLink: (params: URLSearchParams) => string,
-    options: DataQueryParams,
-    useAbortController?: boolean
-  ): Promise<PaginatedResource<T>>;
 }

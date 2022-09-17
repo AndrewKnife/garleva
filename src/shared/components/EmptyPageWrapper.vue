@@ -1,22 +1,15 @@
 <template>
   <div id="page">
-    <MainHeader />
-    <div class="flex-grow">
-      <slot></slot>
-    </div>
-    <MainFooter />
+    <slot></slot>
   </div>
 </template>
 
 <script lang="ts">
 import { defineComponent } from 'vue';
 import { usePeople } from '@/shared/composables/usePeople';
-import MainHeader from '@/shared/components/MainHeader.vue';
-import MainFooter from '@/shared/components/MainFooter.vue';
 
 export default defineComponent({
-  name: 'PageWrapper',
-  components: { MainFooter, MainHeader },
+  name: 'EmptyPageWrapper',
   setup() {
     const { users, fetchUsers } = usePeople();
     fetchUsers();
@@ -27,6 +20,6 @@ export default defineComponent({
 
 <style scoped>
 #page {
-  @apply flex flex-col h-full;
+  @apply flex flex-col h-full bg-shark-500 m-auto;
 }
 </style>

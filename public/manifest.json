@@ -1,8 +1,8 @@
 {
-  "short_name": "Kurt Konig",
-  "name": "Kurt Konig employee portal",
-  "lang": "de",
-  "description": "Employee portal for internal usage",
+  "short_name": "Party Score",
+  "name": "Party Score",
+  "lang": "en",
+  "description": "A scoring app for parties",
   "start_url": "/",
   "background_color": "#fafafa",
   "theme_color": "#2b2b2b",

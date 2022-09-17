@@ -1,25 +1,37 @@
 <template>
-  <div id="page">
-    <slot></slot>
+  <div class="admin-controls">
+    <BaseButton @click="pollModal.open">{{ t('create_poll_button') }}</BaseButton>
+    <BaseModal
+      v-if="pollModal.isOpen.value"
+      :label="t('poll_modal_heading')"
+      @close="pollModal.close"
+    >
+      <PollForm @finished="pollModal.close" />
+    </BaseModal>
   </div>
 </template>
 
 <script lang="ts">
 import { defineComponent } from 'vue';
-import { usePeople } from '@/shared/composables/usePeople';
+import BaseModal from '@/shared/components/BaseModal.vue';
+import PollForm from '@/shared/components/admin/PollForm.vue';
+import { useTranslations } from '@/shared/composables/useTranslations';
+import { useOpenable } from '@/shared/composables/useOpenable';
+import BaseButton from '@/shared/components/buttons/BaseButton.vue';
 
 export default defineComponent({
-  name: 'EmptyPageWrapper',
+  name: 'AdminController',
+  components: { BaseButton, PollForm, BaseModal },
   setup() {
-    const { users, fetchUsers } = usePeople();
-    fetchUsers();
-    return { users };
+    const { t } = useTranslations();
+    const pollModal = useOpenable(false);
+    return { t, pollModal };
   },
 });
 </script>
 
 <style scoped>
-#page {
-  @apply max-w-[108rem] flex flex-col h-full bg-shark-500 m-auto;
+.admin-controls {
+  @apply my-4;
 }
 </style>

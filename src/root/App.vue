@@ -1,32 +1,24 @@
 <template>
-  <div
-    v-if="initializedOptimizely"
-    class="flex flex-col h-full"
-    :class="{ missingFeature: features.hideMissingFeatures }"
-  >
+  <div class="bg-bridal h-full w-full">
     <router-view />
   </div>
-  <BaseSpinner v-else />
-  <NotificationsWrapper />
 </template>
 
 <script lang="ts">
 import { defineComponent } from 'vue';
-import { useFeatures } from '@/shared/composables/useFeatures';
-import NotificationsWrapper from '@/shared/components/molecules/NotificationCard/NotificationsWrapper.vue';
-import BaseSpinner from '@/shared/components/atoms/visual/BaseSpinner/BaseSpinner.vue';
+import { usePeople } from '@/shared/composables/usePeople';
+import { usePolls } from '@/shared/composables/usePolls';
+
+const UPDATE_DATA_EVERY = 10000;
 
 export default defineComponent({
-  components: { NotificationsWrapper, BaseSpinner },
   setup() {
-    const { initializedOptimizely, features } = useFeatures();
-
-    return { initializedOptimizely, features };
+    const { fetchUsers } = usePeople();
+    const { fetchPolls } = usePolls();
+    setInterval(() => {
+      fetchUsers();
+      fetchPolls();
+    }, UPDATE_DATA_EVERY);
   },
 });
 </script>
-<style>
-.missingFeature .missing-feature {
-  @apply opacity-40 pointer-events-none;
-}
-</style>

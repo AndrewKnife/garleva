@@ -1,29 +1,31 @@
 <template>
-  <div class="better-row">
-    <span class="w-full">{{ better.name }}</span>
-    <span class="w-full text-center flex items-center justify-center">
-      {{ better.betAmount }}
-    </span>
-    <span class="w-full text-right flex items-center justify-end">
-      {{ pollOptions.find((option) => option.id === better.betOption).name }}
-    </span>
+  <div class="poll-users">
+    <div v-if="poll.betters.length" class="grid grid-cols-3 bg-shark-100 py-2 px-2">
+      <span>{{ t('user') }}</span>
+      <span class="w-full text-center">{{ t('money') }}</span>
+      <span class="w-full text-right">{{ t('for') }}</span>
+    </div>
+    <PollGalleryUser
+      v-for="better in poll.betters"
+      :key="better.id"
+      :better="better"
+      :poll-options="poll.options"
+    />
   </div>
 </template>
 
 <script lang="ts">
 import { defineComponent, PropType } from 'vue';
 import { useTranslations } from '@/shared/composables/useTranslations';
-import { Better, PollOption } from '@/shared/interfaces/api/apiPoll';
+import { ApiPollJson } from '@/shared/interfaces/api/apiPoll';
+import PollGalleryUser from '@/shared/components/poll_gallery/PollGalleryUser.vue';
 
 export default defineComponent({
-  name: 'PollGalleryUser',
+  name: 'PollGalleryBettersList',
+  components: { PollGalleryUser },
   props: {
-    better: {
-      type: Object as PropType<Better>,
-      required: true,
-    },
-    pollOptions: {
-      type: Array as PropType<PollOption[]>,
+    poll: {
+      type: Object as PropType<ApiPollJson>,
       required: true,
     },
   },
@@ -35,8 +37,4 @@ export default defineComponent({
 });
 </script>
 
-<style scoped>
-.better-row {
-  @apply border-b-2 border-t-2 pb-1 border-shark-500 grid grid-cols-3 py-4 even:bg-shark-300 px-2;
-}
-</style>
+<style scoped></style>

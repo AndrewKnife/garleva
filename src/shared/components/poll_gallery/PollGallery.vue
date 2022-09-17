@@ -1,51 +1,48 @@
 <template>
   <div class="poll-gallery">
-    <div class="poll-item" v-for="poll in polls" :key="poll.id">
-      <div class="flex justify-between mb-4">
-        <span>{{ poll.name }}</span>
-        <span class="text-totem-200">{{ t('delete') }}</span>
-      </div>
-      <div class="poll-users"></div>
-      <div class="poll-actions">
-        <BaseInput class="w-full">{{ t('bet') }}</BaseInput>
-        <BaseButton class="w-full">{{ t('bet') }}</BaseButton>
-      </div>
-    </div>
+    <PollGalleryItem
+      v-for="poll in polls"
+      :key="poll.id"
+      :poll="poll"
+      @selectPoll="() => selectPoll(poll)"
+    />
+    <EditPollModal v-if="selectedPoll" :poll="selectedPoll" @close="clearPoll" />
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent, PropType } from 'vue';
-import { ApiPoll } from '@/shared/interfaces/api/apiPoll';
+import { defineComponent, PropType, ref } from 'vue';
+import { ApiPollJson } from '@/shared/interfaces/api/apiPoll';
 import { useTranslations } from '@/shared/composables/useTranslations';
-import BaseButton from '@/shared/components/buttons/BaseButton.vue';
-import BaseInput from '@/shared/components/inputs/BaseInput.vue';
+import PollGalleryItem from '@/shared/components/poll_gallery/PollGalleryItem.vue';
+import EditPollModal from '@/shared/components/poll_gallery/EditPollModal.vue';
 
 export default defineComponent({
   name: 'PollGallery',
-  components: { BaseInput, BaseButton },
+  components: { EditPollModal, PollGalleryItem },
   props: {
     polls: {
-      type: Array as PropType<ApiPoll[]>,
+      type: Array as PropType<ApiPollJson[]>,
       required: true,
     },
   },
   setup() {
     const { t } = useTranslations();
-    return { t };
+    const selectedPoll = ref<ApiPollJson>();
+    const selectPoll = (poll: ApiPollJson) => {
+      selectedPoll.value = poll;
+    };
+    const clearPoll = () => {
+      selectedPoll.value = undefined;
+    };
+
+    return { t, selectedPoll, selectPoll, clearPoll };
   },
 });
 </script>
 
 <style scoped>
 .poll-gallery {
-  @apply grid grid-cols-2 md:grid-cols-3 gap-4 text-peach-50;
-}
-
-.poll-item {
-  @apply bg-shark-400 rounded-2xl p-4;
-}
-.poll-actions {
-  @apply flex;
+  @apply grid grid-cols-1 md:grid-cols-2 gap-4 text-peach-50;
 }
 </style>

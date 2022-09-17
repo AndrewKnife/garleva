@@ -1,0 +1,96 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "name": "Admin",
+      "score": 999960,
+      "secret": "papukai"
+    },
+    {
+      "id": 2,
+      "name": "Andrius Simanavičius",
+      "score": 100,
+      "secret": "garlevietis"
+    },
+    {
+      "id": 3,
+      "name": "Goda Šimkutė",
+      "score": 100,
+      "secret": "supermeile"
+    },
+    {
+      "id": 4,
+      "name": "Povilas Astašauskas",
+      "score": 100,
+      "secret": "instinktas1"
+    },
+    {
+      "id": 5,
+      "name": "Aurimas Alinskas",
+      "score": 100,
+      "secret": "partyboy"
+    },
+    {
+      "id": 6,
+      "name": "Edvinas Šmigelskis",
+      "score": 100,
+      "secret": "smartsexy"
+    },
+    {
+      "id": 7,
+      "name": "Mantvydas Razulevičius",
+      "score": 100,
+      "secret": "developernextdoor"
+    },
+    {
+      "id": 8,
+      "name": "Edmundas Ravdo",
+      "score": 100,
+      "secret": "lovedeveloper"
+    },
+    {
+      "id": 9,
+      "name": "Rytė Patalavičiūtė",
+      "score": 100,
+      "secret": "pauliukosese"
+    },
+    {
+      "id": 10,
+      "name": "Augustinas Bucys",
+      "score": 100,
+      "secret": "gudris2"
+    },
+    {
+      "id": 11,
+      "name": "Ignas Dovydaitis",
+      "score": 100,
+      "secret": "tinyass"
+    },
+    {
+      "id": 12,
+      "name": "Tautvydas Rimkevičius",
+      "score": 100,
+      "secret": "misteris"
+    },
+    {
+      "id": 13,
+      "name": "Paulius Patalavičius",
+      "score": 100,
+      "secret": "pauliukasgarlevos"
+    },
+    {
+      "id": 14,
+      "name": "Paulius Padriezas",
+      "score": 100,
+      "secret": "alauspaulekas"
+    },
+    {
+      "id": 15,
+      "name": "Diana Juzėnaitė",
+      "score": 100,
+      "secret": "secretdianoscode"
+    }
+  ],
+  "polls": [
+  ]
+}

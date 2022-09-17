@@ -1,21 +1,29 @@
 <template>
-  <div class="poll-gallery">
-    <PollGalleryItem v-for="poll in polls" :key="poll.id" :poll="poll" />
+  <div class="better-row">
+    <span class="w-full">{{ better.name }}</span>
+    <span class="w-full text-center flex items-center justify-center">
+      {{ better.betAmount }}
+    </span>
+    <span class="w-full text-right flex items-center justify-end">
+      {{ pollOptions.find((option) => option.id === better.betOption).name }}
+    </span>
   </div>
 </template>
 
 <script lang="ts">
 import { defineComponent, PropType } from 'vue';
-import { ApiPollJson } from '@/shared/interfaces/api/apiPoll';
 import { useTranslations } from '@/shared/composables/useTranslations';
-import PollGalleryItem from '@/shared/components/poll_gallery/PollGalleryItem.vue';
+import { Better, PollOption } from '@/shared/interfaces/api/apiPoll';
 
 export default defineComponent({
-  name: 'PollGallery',
-  components: { PollGalleryItem },
+  name: 'PollGalleryUser',
   props: {
-    polls: {
-      type: Array as PropType<ApiPollJson[]>,
+    better: {
+      type: Object as PropType<Better>,
+      required: true,
+    },
+    pollOptions: {
+      type: Array as PropType<PollOption[]>,
       required: true,
     },
   },
@@ -28,15 +36,7 @@ export default defineComponent({
 </script>
 
 <style scoped>
-.poll-gallery {
-  @apply grid grid-cols-2 md:grid-cols-3 gap-4 text-peach-50;
-}
-
-.poll-item {
-  @apply bg-shark-400 rounded-2xl p-4;
-}
-
-.poll-actions {
-  @apply flex;
+.better-row {
+  @apply border-b-2 border-t-2 pb-1 border-shark-500 grid grid-cols-3 py-4 even:bg-shark-300 px-2;
 }
 </style>

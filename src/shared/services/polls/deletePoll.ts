@@ -1,9 +1,7 @@
-import { apiPost } from '@/shared/services/api';
-import { PollForm } from '@/shared/interfaces/api/apiPoll';
+import { apiDelete } from '@/shared/services/api';
+import { API_URL } from '@/shared/constants/endpoints';
 
-const pollsEndpoint = 'http://192.168.31.7:3000/polls';
-
-export const postPoll = async (pollData: PollForm) => {
-  const result = await apiPost(pollsEndpoint, { body: JSON.stringify(pollData) });
+export const deletePoll = async (pollId: number) => {
+  const result = await apiDelete(API_URL.poll(pollId));
   return result.isOk() ? result.value.data : null;
 };

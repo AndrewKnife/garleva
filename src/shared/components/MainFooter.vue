@@ -1,17 +1,17 @@
 <template>
-  <div id="header"></div>
+  <div id="footer"></div>
 </template>
 
 <script lang="ts">
 import { defineComponent } from 'vue';
 
 export default defineComponent({
-  name: 'MainHeader',
+  name: 'MainFooter',
 });
 </script>
 
 <style scoped>
-#header {
-  @apply bg-shark;
+#footer {
+  @apply bg-shark h-10;
 }
 </style>

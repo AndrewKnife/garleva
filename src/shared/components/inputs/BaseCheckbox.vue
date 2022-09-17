@@ -59,21 +59,21 @@ export default defineComponent({
 }
 
 .checkboxContainer {
-  @apply rounded-3 border-transparent transition ease-in-out duration-100 p-0.5;
+  @apply rounded-3 border-transparent transition ease-in-out duration-100 p-2;
 }
 
 .checkboxBox {
-  @apply bg-transparent border rounded-2 border-shark-500;
+  @apply bg-transparent border rounded-2 border-peach-800;
   @apply flex flex-shrink-0 justify-center items-center;
-  @apply w-3 h-3;
+  @apply w-9 h-9;
 }
 
 .checkboxCheck {
-  @apply fill-current absolute hidden w-auto h-auto text-white pointer-events-none;
+  @apply fill-current absolute hidden w-auto h-auto text-peach-800 pointer-events-none;
 }
 
 .checkboxLabel:not(:empty) {
-  @apply flex items-center text-gray-1600 text-18 ml-1;
+  @apply flex items-center text-18 ml-1 font-medium;
 }
 
 /*Variant bold*/
@@ -87,7 +87,7 @@ export default defineComponent({
 
 /*Checked*/
 .checkboxInput:checked + .checkboxContainer .checkboxBox {
-  @apply bg-shark-500;
+  @apply bg-peach-200;
 }
 
 .checkboxInput:checked + .checkboxContainer .checkboxCheck {
@@ -106,11 +106,11 @@ export default defineComponent({
 /*Hover*/
 
 .checkbox:hover > .checkboxInput:not(:disabled) + .checkboxContainer {
-  @apply bg-gray-500;
+  @apply bg-peach-400;
 }
 
 .checkbox:hover > .checkboxInput:checked:not(:disabled) + .checkboxContainer .checkboxCheck {
-  @apply text-gray-500;
+  @apply text-peach-500;
 }
 
 /*Disabled*/

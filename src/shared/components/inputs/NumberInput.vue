@@ -1,23 +1,30 @@
 <template>
-  <input class="base-input" @input="$emit('update:modelValue', $event.target.value)" />
+  <BaseInput
+    type="number"
+    @input="$emit('update:modelValue', $event.target.value)"
+    v-model="numberInput"
+  />
 </template>
 
 <script lang="ts">
 import { defineComponent } from 'vue';
+import BaseInput from '@/shared/components/inputs/BaseInput.vue';
+import { useModelWrapper } from '@/shared/composables/useModelWrapper';
 
 export default defineComponent({
-  name: 'BaseInput',
+  name: 'NumberInput',
+  components: { BaseInput },
   props: {
     modelValue: {
       required: true,
     },
   },
   emits: ['update:modelValue'],
+  setup(props, { emit }) {
+    const numberInput = useModelWrapper(props, emit);
+    return {
+      numberInput,
+    };
+  },
 });
 </script>
-
-<style scoped>
-.base-input {
-  @apply bg-white p-4 font-bold text-20 text-shark-600 rounded-5 border-peach border;
-}
-</style>

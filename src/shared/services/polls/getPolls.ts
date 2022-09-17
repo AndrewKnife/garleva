@@ -1,9 +1,21 @@
 import { apiGet } from '@/shared/services/api';
-import { ApiPoll } from '@/shared/interfaces/api/apiPoll';
+import { ApiPoll, ApiPollJson, Better, PollOption } from '@/shared/interfaces/api/apiPoll';
+import { API_URL } from '@/shared/constants/endpoints';
 
-const pollsEndpoint = 'http://192.168.31.7:3000/polls';
+export const getPolls = async (past = false): Promise<ApiPollJson[] | undefined> => {
+  const result = await apiGet<ApiPoll[]>(past ? API_URL.pastPolls : API_URL.polls);
+  let returnVal;
+  if (result.isOk()) {
+    returnVal = result.value.data.map((pollItem) => {
+      const item: ApiPollJson = {
+        ...pollItem,
+        betters: JSON.parse(pollItem.betters || '[]') as Better[],
+        options: JSON.parse(pollItem.options || '[]') as PollOption[],
+        winningOptions: pollItem.winningOptions,
+      };
+      return item;
+    });
+  }
 
-export const getPolls = async () => {
-  const result = await apiGet<ApiPoll[]>(pollsEndpoint);
-  return result.isOk() ? result.value.data : null;
+  return returnVal;
 };

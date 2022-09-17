@@ -1,35 +1,46 @@
 <template>
-  <div class="ranking-table">
-    <div class="ranking-card" v-for="(user, index) in users" :key="user.id">
-      <span>{{ index + 1 }}</span>
-      <span>{{ user.name }}</span>
-      <span>{{ user.score }}</span>
+  <div id="page-wrapper">
+    <div class="fixed inset-0 bg-shark-100 -z-20"></div>
+    <div class="absolute top-0 right-0 left-0 bg-shark-500 h-[5.3rem]"></div>
+    <div id="page">
+      <MainHeader :user="user" />
+      <div class="bg-shark-100">
+        <div class="flex-grow mx-6 pb-6">
+          <slot></slot>
+        </div>
+      </div>
+      <MainFooter />
     </div>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent, PropType } from 'vue';
-import { ApiUser } from '@/shared/interfaces/api/apiUser';
+import { defineComponent } from 'vue';
+import { usePeople } from '@/shared/composables/usePeople';
+import MainHeader from '@/shared/components/MainHeader.vue';
+import MainFooter from '@/shared/components/MainFooter.vue';
+import { useCurrentUser } from '@/shared/composables/useCurrentUser';
 
 export default defineComponent({
-  name: 'RankingCards',
-  props: {
-    users: Array as PropType<ApiUser[]>,
+  name: 'PageWrapper',
+  components: { MainFooter, MainHeader },
+  setup() {
+    const { users, fetchUsers } = usePeople();
+    const { user, getSavedUser } = useCurrentUser();
+    getSavedUser();
+    fetchUsers();
+
+    return { users, user };
   },
 });
 </script>
 
 <style scoped>
-.ranking-table {
-  @apply bg-white;
+#page-wrapper {
+  @apply h-full bg-shark-100;
 }
 
-.ranking-card {
-  @apply text-18 rounded-2 bg-shark-200 flex justify-between px-5 py-4;
-}
-
-.ranking-card:nth-child(even) {
-  @apply bg-shark-100;
+#page {
+  @apply max-w-[108rem] flex flex-col h-full bg-shark-100 m-auto relative;
 }
 </style>

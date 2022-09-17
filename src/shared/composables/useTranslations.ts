@@ -1,8 +1,8 @@
 import { useI18n } from 'vue-i18n';
 import * as enTranslations from '@/root/locales/en.json';
-import * as deTranslations from '@/root/locales/de.json';
+import * as ltTranslations from '@/root/locales/lt.json';
 
-export type TranslationKeyType = keyof typeof enTranslations | keyof typeof deTranslations | string;
+export type TranslationKeyType = keyof typeof enTranslations | keyof typeof ltTranslations | string;
 
 export type TranslationFun = (key?: TranslationKeyType, vars?: Record<string, unknown>) => string;
 
