@@ -1,5 +1,5 @@
 import { Ref, ref } from 'vue';
-import { ApiPollJson, Better, PollForm, PollOption } from '@/shared/interfaces/api/apiPoll';
+import { ApiPollJson, Better, PollForm } from '@/shared/interfaces/api/apiPoll';
 import { getPolls } from '@/shared/services/polls/getPolls';
 import { postPoll } from '@/shared/services/polls/postPoll';
 import { deletePoll } from '@/shared/services/polls/deletePoll';
